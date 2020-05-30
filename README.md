@@ -14,7 +14,7 @@ Other things I want to do:
 2. Collecting feedback from users who give input and can correct the labels. It would be great to build in a feedback loop. 
 
    
-## Training
+## Training 
 
 Here is where all the ugly training work happens. I'm not a researcher by trade, but I know my way roughly around fastText and Pandas. I chose fastText because I've worked with it before and I wanted a pretty good classification model focused on text. 
 
@@ -23,7 +23,7 @@ Other things I want to do:
 2. Clustering -- how does that work/help here and how accurate would that be? Would be fun to work on unsupervised learning. 
 
 
-## Inference
+## Inference (Code WIP)
 
 Building a simple inference pipeline isn't necessarily challenging, but hosting the prediction service securely can be. Now you're looking at things like re-deployment with updated models and/or updated code, exposing APIs securely, logging, and figuring out model performance in production. 
 
