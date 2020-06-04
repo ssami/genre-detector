@@ -1,1 +1,4 @@
 .idea/
+
+# model files I'm testing with
+*.bin
