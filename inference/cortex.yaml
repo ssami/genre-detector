@@ -6,8 +6,8 @@
       model_bucket: genre-model
       model_key: genre_class_1590302222.bin
     env:
-      AWS_ACCESS_KEY_ID: AKIAJ7DEHORCDJ3DPN5A
-      AWS_SECRET_ACCESS_KEY: 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
+      AWS_ACCESS_KEY_ID: XXXX
+      AWS_SECRET_ACCESS_KEY: XXXX
       AWS_DEFAULT_REGION: us-east-1
 
   compute:
