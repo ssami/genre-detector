@@ -1,0 +1,6 @@
+region: us-east-1
+cluster_name: cortex-genre
+bucket: cortex-genre-fasttext
+instance_type: t3.medium
+min_instances: 1
+max_instances: 2
