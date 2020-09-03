@@ -3,10 +3,16 @@ document.querySelector("#clazz").addEventListener("click", (event) => {
     const url = 'http://localhost:8888';
     const Http = new XMLHttpRequest();
     Http.open("POST", url);
-    Http.send(JSON.stringify({"data":"sherlock holmes is my favorite detective fiction"}));
+    console.log(document.getElementById("words").value);
+    Http.send(JSON.stringify({"data":document.getElementById("words").value}));
+
 
     Http.onreadystatechange = (e) => {
-      console.log(Http.responseText)
+        var resp = Http.responseText;
+        console.log(Http.json);
+        var predictions = JSON.parse(Http.json);
+
+        document.getElementById('classification').value = Http.json;
     }
 });
 

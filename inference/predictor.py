@@ -3,7 +3,7 @@ import re
 import fasttext as ft
 import json
 
-from exceptions import ConfigException
+from inference.exceptions import ConfigException
 import boto3
 import os
 import logging

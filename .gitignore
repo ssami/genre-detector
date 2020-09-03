@@ -1,3 +1,5 @@
+*.DS_Store
+
 .idea/
 
 # model files I'm testing with
