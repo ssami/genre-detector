@@ -1,14 +1,29 @@
 import fasttext as ft
 import streamlit as st
+import requests
 
 
 label_prefix = "__label__"
+model_id = '1590302222'
+model_path = '/Users/sumi/gitrepos/genre-detector/inference/genre_class_1590302222.bin'
+feedback_api = 'http://127.0.0.1:8000/feedback/'
+
 
 def get_label(raw_label_str, prefix):
     return raw_label_str.split(prefix)[1]
 
 
-model = ft.load_model('/Users/sumi/gitrepos/genre-detector/inference/genre_class_1590302222.bin')
+def submit_feedback(model_id, text, label):
+    body = {
+        'model_id': model_id,
+        'text': text,
+        'label': label
+    }
+    resp = requests.post(url=feedback_api, json=body)
+    return resp
+
+
+model = ft.load_model(model_path)
 
 st.title('Genre Predictor!')
 user_input = st.text_input(label='Input the text whose genre you want to predict')
@@ -27,10 +42,12 @@ if user_input:
 
     if feedback_genre:
         st.text(f'You selected {feedback_genre}')
-
         if b:
-            st.success('Thank you for your feedback!')
-
+            resp = submit_feedback(model_id, user_input, feedback_genre)
+            if resp.status_code == 200:
+                st.success('Thank you for your feedback!')
+            else:
+                st.error(f'Something went wrong while submitting feedback...{resp.json()}')
 
 
 
