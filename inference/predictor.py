@@ -1,12 +1,9 @@
+import json
+import logging
 import re
 
-import fasttext as ft
-import json
-
-from exceptions import ConfigException
-import boto3
-import os
-import logging
+import fasttext
+import smart_open
 
 
 class PythonPredictor:
@@ -15,21 +12,15 @@ class PythonPredictor:
         self.model = self.download_model()
 
     def download_model(self):
-        req_configs = ['model_bucket', 'model_key']
-        for config_key in req_configs:
-            if config_key not in self.config:
-                raise ConfigException(f'No {config_key} defined')
+        if 's3://' in self.config['model_location']:
+            model = smart_open.open(self.config['model_location'], 'rb').read()
+            with open('model.bin', 'wb') as fh:
+                fh.write(model)
+            genre_model = fasttext.load_model('model.bin')
+        else:
+            genre_model = fasttext.load_model(self.config['model_location'])
 
-        s3_client = boto3.client('s3')
-        local_file_name = os.path.split(self.config['model_key'])[-1]
-        local_file_path = os.path.join('/tmp', local_file_name)
-        logging.info(f"Model downloaded from {self.config['model_bucket']}/{self.config['model_key']} "
-                     f"and stored in {local_file_path}")
-        buckets = s3_client.list_buckets()
-        logging.info(buckets)
-        with open(local_file_path, 'wb') as wh:
-            s3_client.download_fileobj(self.config['model_bucket'], self.config['model_key'], wh)
-        genre_model = ft.load_model(local_file_path)
+        logging.info(f"Model loaded successfully from {self.config['model_location']}")
         return genre_model
 
     def aggressively_clean_text(self, t):

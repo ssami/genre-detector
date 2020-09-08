@@ -1,6 +1,5 @@
-# cortex is installed as a CLI: https://github.com/cortexlabs/cortex/
 # flask is perfectly fine as a service but I wanted to try fastAPI for a change
 
-fasttext==0.9.2
 smart_open==2.1.1
-fastapi
+fastapi==0.61.1
+uvicorn==0.11.8
