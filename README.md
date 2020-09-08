@@ -25,9 +25,12 @@ Other things I want to do:
 
 ## Inference (Code WIP)
 
-Building a simple inference pipeline isn't necessarily challenging, but hosting the prediction service securely can be. Now you're looking at things like re-deployment with updated models and/or updated code, exposing APIs securely, logging, and figuring out model performance in production. 
+Building a simple inference pipeline isn't necessarily challenging, but hosting the prediction service securely can be. Now you're looking at things like re-deployment with updated models and/or updated code, exposing APIs securely, logging, and figuring out model performance in production.  
 
-Things I'd like to do: 
-1. A simple Python service first, e.g. FastAPI 
-2. Cortex 
-3. Clipper
+Built with Cortex, to get a feel for an inference engine. Not convinced any project needs an engine off the bat... 
+
+## Feedback (Code WIP)
+
+Building a feedback service to store feedback objects into a SQL DB so that they can be added to the training data set. 
+Can be started from this parent directory by doing: 
+` uvicorn feedback.feedback:app`
