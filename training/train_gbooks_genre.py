@@ -140,7 +140,7 @@ for i in range(4):
     f1_score = 2*precision*recall/(precision+recall)
     print(f"Top n: {i+1} Samples: {samples} Precision: {precision} Recall: {recall} F1: {f1_score}")
 
-test_none_df = df[df['generes'] == 'none']
+test_none_df = df[df['genres'] == 'none']
 test_none_df.to_csv('none_genres.csv')
 
 test_descr = test_none_df.iloc[0]['description']
