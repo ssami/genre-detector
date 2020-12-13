@@ -35,10 +35,13 @@ class PythonPredictor:
 
     def predict(self, payload):
         cleaned_input = self.aggressively_clean_text(payload['data'])
-        pred_labels, confids = self.model.predict(cleaned_input, k=3)
+        topn = 3
+        if 'topn' in payload:
+            topn = int(payload['topn'])
+        pred_labels, confids = self.model.predict(cleaned_input, k=topn)
         label_prefix = "__label__"
         predictions = dict()
         for label, confidence in zip(pred_labels, confids):
             l = label.split(label_prefix)[1]
             predictions[l] = confidence
-        return json.dumps({'prediction': predictions})
+        return json.dumps({'prediction': predictions, 'labels': self.model.labels})

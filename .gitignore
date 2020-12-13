@@ -1,3 +1,9 @@
+# Jupyter
+*.ipynb_checkpoints/*
+
+# Database files
+*.db
+
 # Mac
 .DS_Store
 
