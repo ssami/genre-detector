@@ -19,8 +19,9 @@ Other things I want to do:
 Here is where all the ugly training work happens. I'm not a researcher by trade, but I know my way roughly around fastText and Pandas. I chose fastText because I've worked with it before and I wanted a pretty good classification model focused on text. 
 
 Other things I want to do: 
+1. Monitoring the model performance; have an option to build a bad model and have it go through CI/CD and see how it messes up the inference metrics 
 1. doc2vec and calculate document cosine similarity so I finally gain enough experience working with it. 
-2. Clustering -- how does that work/help here and how accurate would that be? Would be fun to work on unsupervised learning. 
+1. Clustering -- how does that work/help here and how accurate would that be? Would be fun to work on unsupervised learning. 
 
 
 ## Inference (Code WIP)
