@@ -4,8 +4,8 @@ import requests
 
 
 label_prefix = "__label__"
-model_id = '1590302222'
-model_path = '/Users/sumi/gitrepos/genre-detector/inference/genre_class_1590302222.bin'
+
+
 feedback_api = 'http://127.0.0.1:8000/feedback/'
 inference_api = 'http://localhost:8888'
 
@@ -41,6 +41,7 @@ if user_input:
     response = predict_genre(user_input)
     pred_map = response['prediction']
     labels = response['labels']
+    model_id = response['model_id']
 
     for label,confidence in pred_map.items():
         l = get_label(label, label_prefix)

@@ -7,6 +7,9 @@ import smart_open
 
 
 class PythonPredictor:
+    """
+    TODO: upgrade to the latest version of the predictor in Cortex
+    """
     def __init__(self, config):
         self.config = config
         self.model = self.download_model()
@@ -44,4 +47,5 @@ class PythonPredictor:
         for label, confidence in zip(pred_labels, confids):
             l = label.split(label_prefix)[1]
             predictions[l] = confidence
-        return json.dumps({'prediction': predictions, 'labels': self.model.labels})
+        # todo: model ID should come from the model metadata, which we don't have as part of this predictor
+        return json.dumps({'prediction': predictions, 'labels': self.model.labels, 'model_id': '1590302222'})

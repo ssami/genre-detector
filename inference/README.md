@@ -16,3 +16,6 @@ Sample Request:
 curl http://localhost:8888 -X POST -H "Content-Type: application/json" -d '{"data": "Sherlock Holmes was a very private man"}'
 {"prediction": {"mystery___detective": 0.995183527469635, "thrillers": 0.00437257532030344, "crime": 0.00046282517723739147}}
 ```
+
+The Python service must have a constructor that takes in a config map, and must support a `predict` method. 
+More info here: https://docs.cortex.dev/workloads/realtime-api/predictors#python-predictor
