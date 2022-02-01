@@ -7,6 +7,9 @@ from sklearn.utils import resample
 from datetime import datetime as dt
 
 
+CSV_FILE = '/Users/sumi/projects/kaggle-google-books/google-books-dataset/google_books_1299.csv'
+MODEL_ID = '1590302222'
+
 def download_feedback_data(model_id):
     """
     Get data from the feedback module per model ID
@@ -91,8 +94,14 @@ def printout_predictions(model, df):
         print(f"{i}: {cleaned_test[:100]}, prediction: {prediction}")
 
 
-def train(csv_file):
-    df = pd.read_csv('/Users/sumi/projects/kaggle-google-books/google-books-dataset/google_books_1299.csv')
+def train(csv_file, model_id):
+    df_1 = pd.read_csv(csv_file)
+    # add in the feedback training data
+
+    # todo: find latest model id from the model management system -- e.g. neptune integrating with MLFlow to integrate
+    feedback_df = download_feedback_data(model_id)
+    df = pd.concat(df_1, feedback_df)
+
     genre_df = cleanup(df)
     gen_df = genre_choose(genre_df)
 
