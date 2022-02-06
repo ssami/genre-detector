@@ -1,5 +1,5 @@
 # flask is perfectly fine as a service but I wanted to try fastAPI for a change
 
 smart_open==2.1.1
-fastapi==0.61.1
+fastapi==0.65.2
 uvicorn==0.11.8
