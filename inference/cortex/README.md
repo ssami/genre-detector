@@ -1,3 +1,5 @@
+# outdated - update needed 
+
 `cortex deploy`
 
 Deploy wraps up all the information in the directory of cortex.yaml and deploys a 
