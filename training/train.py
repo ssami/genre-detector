@@ -5,6 +5,7 @@ import random
 import fasttext
 from sklearn.utils import resample
 from datetime import datetime as dt
+from lib.tools import preprocess, preprocess_label
 
 
 CSV_FILE = '/Users/sumi/projects/kaggle-google-books/google-books-dataset/google_books_1299.csv'
@@ -64,22 +65,6 @@ def genre_choose(df_split):
     return genre_2_split
 
 
-def aggressively_clean_text(t):
-    t = t.lower()
-    t = re.sub(r"\W", ' ', t)
-    return t
-
-
-def aggressively_clean_label(t):
-    t = re.sub(r"&amp,", '&', t)
-    t = re.sub(r"[\( | \) | \&]", ' ', t)
-    t = re.sub(r"\s", '_', t)
-
-    t = t.lower()
-    t = '__label__' + t
-    return t
-
-
 def printout_predictions(model, df):
     test_non_df = pd.read_csv('none_genres.csv')
     # pick some random indexes
@@ -89,7 +74,7 @@ def printout_predictions(model, df):
 
     for i in range(len(test_non_df)):
         test_descr = df.iloc[i]['description']
-        cleaned_test = aggressively_clean_text(test_descr)
+        cleaned_test = preprocess(test_descr)
         prediction = model.predict(cleaned_test)
         print(f"{i}: {cleaned_test[:100]}, prediction: {prediction}")
 
@@ -111,8 +96,8 @@ def train(csv_file, model_id):
 
     relevant_cols = ['description']
     label_col = 'genre'
-    genre_labels = gen_df[label_col].apply(aggressively_clean_label)
-    cleaned_descr = gen_df['description'].apply(aggressively_clean_text)
+    genre_labels = gen_df[label_col].apply(preprocess_label)
+    cleaned_descr = gen_df['description'].apply(preprocess)
 
     # now contains the genres and the labels
     cleaned_full_df = pd.DataFrame.merge(gen_df, genre_labels, left_index=True, right_index=True)
