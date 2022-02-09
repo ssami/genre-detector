@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from app.lib.tools import preprocess, postprocess
 from app.model import LoadedModel
+import json
 
 app = FastAPI()
 LABEL_PREFIX = '__label__'
