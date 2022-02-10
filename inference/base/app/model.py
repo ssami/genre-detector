@@ -17,4 +17,4 @@ class LoadedModel:
             raise RuntimeError("Model not found at " + MODEL_PATH_ENV)
 
     def predict(self, text, k=1):
-        return self.model(text, k)
+        return self.model.predict(text, k)
