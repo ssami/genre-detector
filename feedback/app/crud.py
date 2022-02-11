@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from feedback import obj_models
+from app import obj_models
 
 
 def get_feedback_for_model(db: Session, model_id: int, skip: int = 0, limit: int = 100):

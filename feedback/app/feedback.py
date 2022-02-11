@@ -3,9 +3,9 @@ from typing import List
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
-from feedback.obj_models import FeedbackModel, FeedbackOrm, Base
-from feedback.feedback_db import SessionLocal, engine
-from feedback import crud
+from app.obj_models import FeedbackModel, FeedbackOrm, Base
+from app.feedback_db import SessionLocal, engine
+from app import crud
 
 app = FastAPI()
 Base.metadata.create_all(bind=engine)

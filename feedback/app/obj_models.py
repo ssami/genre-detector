@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String
 
-from .feedback_db import Base
+from app.feedback_db import Base
 
 
 class Feedback(Base):
