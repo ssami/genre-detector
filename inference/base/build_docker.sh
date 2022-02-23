@@ -12,4 +12,4 @@ cp ../genre_class_1590302222.bin ./model.bin
 docker build -t base-infer -f Dockerfile .
 
 # cleanup
-rm -rf lib/
+rm -rf ./app/lib/

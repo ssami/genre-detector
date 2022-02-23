@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from app.lib.tools import preprocess, postprocess
 from app.model import LoadedModel
@@ -7,6 +8,16 @@ import json
 app = FastAPI()
 LABEL_PREFIX = '__label__'
 model = LoadedModel()
+
+origins = ['*']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
 
 class TextInfer(BaseModel):
