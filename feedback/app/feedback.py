@@ -1,14 +1,24 @@
 from typing import List
 
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
-
-from app.obj_models import FeedbackModel, FeedbackOrm, Base
-from app.feedback_db import SessionLocal, engine
 from app import crud
+from app.feedback_db import SessionLocal, engine
+from app.obj_models import FeedbackModel, FeedbackOrm, Base
+from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
 
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
+
+origins = ['*']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
 
 # Dependency
