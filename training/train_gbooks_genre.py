@@ -27,17 +27,20 @@ def download_feedback_data(model_id):
     TODO: in the future we should check the minimum length of a feedback text, 
     and whether it exists in the training or test data. 
     """
-    feedback = requests.get(f'http://127.0.0.1:8000/feedback/{model_id}').json()
+    feedback = requests.get(f'http://127.0.0.1/feedback/').json()
     fb_list = []
     for f in feedback: 
         fb_dict = dict()
-        fb_dict['description'] = f['text']
+        fb_dict['description'] = aggressively_clean_text(f['text'])
         fb_dict['genre'] = '__label__' + f['label']
         fb_list.append(fb_dict)
 
     df = pd.DataFrame(fb_list)
     return df
 
+
+feedback_df = download_feedback_data(None)
+print(feedback_df)
 
 df = pd.read_csv('/Users/sumi/projects/kaggle-google-books/google-books-dataset/google_books_1299.csv')
 def cleanup(df): 
@@ -121,6 +124,9 @@ cleaned_df.head()
 
 cleaned_df = cleaned_df.drop(['genre_x', 'description_x'], axis=1).rename(columns={'description_y': 'description', 'genre_y': 'genre'})
 cleaned_df.head()
+
+final_df = pd.concat([cleaned_df, feedback_df], ignore_index=True)
+print(final_df)
 
 data_labels = cleaned_df['genre'] + ' ' + cleaned_df['description']
 train_percentage = 0.8
@@ -250,8 +256,6 @@ train_percentage = 0.8
 test_percentage = 1.0 - train_percentage
 train_data = data_labels.sample(frac=train_percentage).to_csv('train_genre.txt', header=False, index=False)
 test_df = data_labels.sample(frac=test_percentage).to_csv('test_genre.txt', header=False, index=False)
-
-help(pd.read_csv)
 
 # # Part 3, Train Model and Test: this time with some hyperparameter tuning
 

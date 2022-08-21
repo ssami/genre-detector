@@ -1,28 +1,12 @@
-from sqlalchemy.orm import Session
+from typing import List
 
-from app import obj_models
-
-
-def get_feedback_for_model(db: Session, model_id: int, skip: int = 0, limit: int = 100):
-    return db.query(obj_models.Feedback)\
-        .filter(obj_models.Feedback.model_id == model_id)\
-        .offset(skip)\
-        .limit(limit)\
-        .all()
+from app.db_models import FeedbackModel
+from app.feedback_db import FeedbackClient
 
 
-def get_feedback(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(obj_models.Feedback)\
-        .offset(skip)\
-        .limit(limit)\
-        .all()
+def create_feedback(client: FeedbackClient, info: FeedbackModel):
+    return client.insert_feedback(info)
 
 
-def create_feedback(db: Session, feedback: obj_models.FeedbackModel):
-    db_item = obj_models.Feedback(**feedback.dict())
-    db.add(db_item)
-    db.commit()
-    db.refresh(db_item)
-
-    return db_item
-
+def get_all_feedback(client: FeedbackClient, limit=10) -> List[FeedbackModel]:
+    return client.get_feedback(limit)

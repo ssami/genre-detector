@@ -10,4 +10,4 @@ COPY ./app /code/app
 COPY ./app/lib /code/app/lib
 COPY ./model.bin /code/app/model.bin
 
-CMD ["uvicorn", "app.infer:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.infer:app", "--host", "0.0.0.0", "--port", "8000"]
